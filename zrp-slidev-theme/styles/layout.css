@@ -1,0 +1,63 @@
+:root {
+  /* default theme color */
+  /* can be overrided by uses `themeConfig` option */
+  --slidev-theme-primary: #D75956;
+  --slidev-code-background: #f8f8f8;
+  --zrp-background: #232323ff;
+
+}
+
+.slidev-layout {
+  background: var(--zrp-background);
+
+  h1 {
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+  }
+}
+
+.slidev-layout.cover {
+  @apply h-full grid;
+
+  h1 {
+    @apply text-6xl leading-20 font-bold;
+    text-align: center;
+  }
+}
+
+.slidev-layout.content {
+  @apply h-full grid pt-xs;
+
+
+  h1 {
+    @apply text-4xl leading-20 font-bold;
+    text-align: left;
+  }
+}
+
+.slidev-layout.center {
+  @apply h-full grid pt-xs;
+
+
+  h1 {
+    @apply text-6xl font-bold;
+  }
+}
+
+
+.slidev-layout.end {
+  @apply h-full grid pt-xs;
+
+
+  h1 {
+    @apply font-bold;
+  }
+
+  p {
+    @apply w-sm;
+  }
+}
+
