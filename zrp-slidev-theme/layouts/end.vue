@@ -10,7 +10,7 @@ const props = defineProps<{
 <template>
   <div class="slidev-layout end">
     <div class="relative h-full w-full flex-col flex justify-center items-end">
-      <Bird class="h-[32px] w-[32px]" color="white"/>
+      <Bird color="white"/>
       <div class="flex-col min-w-md max-w-xl">
         <hr class="h-px w-full my-8 bg-white border-0">
         <slot />

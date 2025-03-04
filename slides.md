@@ -1,7 +1,6 @@
 ---
 theme: ./zrp-slidev-theme
 title: Otimização de CI/CD para Aplicações NestJS
-transition: slide-left
 mdc: true
 ---
 
@@ -15,29 +14,85 @@ layout: content
 
 # Sumário
 
-- [**Contexto**](#contexto)
-  - O que é CI/CD?
-  - Estrutura do Projeto
-  - Tecnologias e Arquitetura Utilizadas
-- **O Problema**
-- **Melhorias Implementadas**
-  - Padronização de Mocks
-  - Testes Unitários sem Dependências Externas
-  - Testes E2E com Shard e Parallel
-- **Resultados Obtidos**
-- **Conclusão**
+<ul>
+  <li>
+    <Link to="context">Contexto</Link>
+    <ul>
+      <li><Link to="what-is-ci-and-cd">O que é CI/CD?</Link></li>
+      <li><Link to="project-structure">Estrutura do Projeto</Link></li>
+      <li><Link to="technologies-and-architecture-used">Tecnologias e Arquitetura Utilizadas</Link></li>
+    </ul>
+  </li>
+
+  <li>
+    <Link to="problem">O Problema</Link>
+  </li>
+
+  <li>
+    <Link to="implemented-improvements">Melhorias Implementadas</Link>
+    <ul>
+      <li><Link to="mocks">Padronização de Mocks</Link></li>
+      <li><Link to="unit-tests">Testes Unitários sem Dependências Externas</Link></li>
+      <li><Link to="e2e-tests">Testes E2E com Shard e Parallel</Link></li>
+    </ul>
+  </li>
+
+  <li>
+    <Link to="results">Resultados Obtidos</Link>
+  </li>
+
+  <li>
+    <Link to="conclusion">Conclusão</Link>
+  </li>
+</ul>
 
 ---
 layout: center
+routeAlias: context
 ---
 
 # Contexto
+
+
+---
+layout: content
+routeAlias: what-is-ci-and-cd
+---
+
+# O que é CI/CD?
+
+CI/CD (Continuous Integration/Continuous Deployment) é um conjunto de práticas que visa automatizar e otimizar o desenvolvimento de software, garantindo que novos códigos sejam integrados e implantados de maneira eficiente e segura.
+
+- **Continuous Integration (CI)**: Refere-se à prática de integrar frequentemente as mudanças de código ao repositório principal. Isso permite que problemas sejam detectados e corrigidos rapidamente, pois cada alteração passa por testes automatizados antes de ser mesclada.
+- **Continuous Deployment (CD)**: É a extensão natural da CI, garantindo que as mudanças aprovadas sejam automaticamente implantadas nos ambientes de produção ou de testes, reduzindo a intervenção manual e aumentando a confiabilidade das entregas.
 
 ---
 layout: content
 ---
 
-# O que é CI/CD?
+# Benefícios do CI/CD
+
+Implementar um pipeline de CI/CD traz diversos benefícios, entre eles:
+
+- **Maior agilidade no desenvolvimento**: O feedback rápido sobre novas implementações reduz o tempo entre a escrita do código e sua disponibilização.
+- **Detecção antecipada de erros**: Testes automatizados ajudam a identificar problemas antes que cheguem à produção.
+- **Menos retrabalho**: Como os erros são encontrados mais cedo, é mais fácil e barato corrigi-los.
+- **Implantações mais seguras e frequentes**: Reduzindo riscos e melhorando a confiabilidade dos sistemas.
+- **Automatização de processos repetitivos**: Permitindo que a equipe foque em desenvolvimento ao invés de tarefas operacionais.
+
+---
+layout: content
+routeAlias: project-structure
+---
+
+# Estrutura do Projeto
+
+Nosso projeto possui uma arquitetura baseada em microsserviços e conta com quatro ambientes distintos:
+
+- **Desenvolvimento**: Ambiente utilizado pelos desenvolvedores para testes e implementação de novas funcionalidades.
+- **Homologação**: Utilizado pelos QAs (Quality Assurance) para validação de novas funcionalidades antes da liberação.
+- **Demonstração**: Um ambiente semelhante à produção, usado como Sandbox por nossos parceiros.
+- **Produção**: O ambiente final onde a aplicação é utilizada pelos usuários.
 
 ---
 layout: content
@@ -45,11 +100,97 @@ layout: content
 
 # Estrutura do Projeto
 
+Nosso pipeline de CI/CD é dividido em duas partes principais:
+
+
+1. **CI de MRs/PRs**: Responsável por validar a integridade do código antes de ser mesclado na branch do ambiente.
+2. **CI/CD da branch do ambiente**: Valida novamente o código e realiza a implantação no ambiente correspondente.
+
+HotFixes são aplicados diretamente em produção, validados e depois propagados para os outros ambientes.
+
+> **Nota:** MR (Merge Request) é um processo utilizado em plataformas como GitLab para solicitar a integração de um conjunto de alterações em uma branch principal. É similar ao PR (Pull Request) utilizado no GitHub.
+
 ---
 layout: content
+routeAlias: technologies-and-architecture-used
 ---
 
 # Tecnologias e Arquitetura Utilizadas
+
+O projeto segue uma arquitetura de **microsserviços**, onde cada serviço é responsável por uma funcionalidade específica e se comunica com outros serviços por meio de APIs e mensageria.
+
+A otimização realizada neste contexto foi aplicada a um dos **microsserviços críticos da operação**, que desempenha um papel essencial no funcionamento do sistema. As tecnologias principais utilizadas incluem:
+
+- **NestJS** para a aplicação backend.
+- **GitLab** como ferramenta de CI/CD e versionamento de código.
+- **Jest** para testes unitários e de integração.
+- **Docker** para conteinerização e gerenciamento de dependências.
+
+---
+layout: center
+routeAlias: problem
+---
+
+# O Problema
+
+---
+layout: content
+routeAlias: problem-1
+---
+
+# O Problema
+
+---
+layout: center
+routeAlias: implemented-improvements
+---
+
+# Melhorias Implementadas
+
+---
+layout: content
+routeAlias: mocks
+---
+
+# Padronização de Mocks
+
+---
+layout: content
+routeAlias: unit-tests
+---
+
+# Testes Unitários sem Dependências Externas
+
+---
+layout: content
+routeAlias: e2e-tests
+---
+
+# Testes E2E com Shard e Parallel
+
+---
+layout: center
+routeAlias: results
+---
+
+# Resultados Obtidos
+
+---
+layout: center
+routeAlias: conclusion
+---
+
+# Conclusão
+
+---
+layout: end
+email: luciano.weslen@zrp.com.br
+website: zrp.com.br
+---
+
+# Muito obrigado!
+
+Se ficou com dúvidas a respeito de uma ou mais partes deste documento, não hesite em entrar em contato conosco.
 
 
 ---
@@ -601,13 +742,3 @@ class: text-center
 [Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
 
 <PoweredBySlidev mt-10 />
-
----
-layout: end
-email: luciano.weslen@zrp.com.br
-website: zrp.com.br
----
-
-# Muito obrigado!
-
-Se ficou com dúvidas a respeito de uma ou mais partes deste documento, não hesite em entrar em contato conosco.
