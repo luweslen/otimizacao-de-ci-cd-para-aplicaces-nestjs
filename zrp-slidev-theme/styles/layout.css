@@ -1,9 +1,12 @@
 :root {
   /* default theme color */
   /* can be overrided by uses `themeConfig` option */
-  --slidev-theme-primary: #D75956;
   --slidev-code-background: #f8f8f8;
-  --zrp-background: #232323ff;
+  --slidev-theme-primary: #9BCA61;
+  --zrp-primary: #9BCA61;
+  --zrp-secondary: #8C6B96;
+  --zrp-tertiary: #6698CB;
+  --zrp-background: #212121ff;
 
 }
 
@@ -61,3 +64,34 @@
   }
 }
 
+.slidev-layout.section {
+  @apply h-full grid pt-xs;
+
+  .clip-parallelogram {
+    @apply absolute top-0 left-0 w-2/3 h-full;
+    clip-path: polygon(0 0, 100% 0%, 40% 100%, 0% 100%);
+    background: var(--slidev-theme-primary);
+  }
+
+  h1 {
+    @apply text-5xl font-bold;
+    color: var(--zrp-background);
+  }
+}
+
+h1 {
+  .primary:hover {
+    color: var(--zrp-primary);
+    transition: 0.3s;
+  }
+  
+  .secondary:hover {
+    color: var(--zrp-secondary);
+    transition: 0.3s;
+  }
+  
+  .tertiary:hover {
+    color: var(--zrp-tertiary);
+    transition: 0.3s;
+  }
+}
