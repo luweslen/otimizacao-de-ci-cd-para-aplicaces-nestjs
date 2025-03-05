@@ -5,3 +5,13 @@
     </div>
   </div>
 </template>
+
+<style>
+.slidev-layout.center {
+  @apply h-full grid pt-xs;
+
+  h1 {
+    @apply text-6xl font-bold;
+  }
+}
+</style>

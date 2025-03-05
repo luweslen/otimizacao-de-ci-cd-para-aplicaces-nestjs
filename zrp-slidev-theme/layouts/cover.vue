@@ -5,8 +5,8 @@ withDefaults(
   defineProps<{
     showDate?: boolean;
   }>(), {
-    showDate: true
-  }
+    showDate: true,
+  },
 );
 </script>
 
@@ -19,3 +19,29 @@ withDefaults(
     </div>
   </div>
 </template>
+
+<style>
+.slidev-layout.cover {
+  @apply h-full grid;
+
+  h1 {
+    @apply text-6xl leading-20 font-bold;
+    text-align: center;
+
+    .primary:hover {
+      color: var(--zrp-primary);
+      transition: 0.3s;
+    }
+
+    .secondary:hover {
+      color: var(--zrp-secondary);
+      transition: 0.3s;
+    }
+
+    .tertiary:hover {
+      color: var(--zrp-tertiary);
+      transition: 0.3s;
+    }
+  }
+}
+</style>

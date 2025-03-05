@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    width?: string;
-    height?: string;
+    width?: string
+    height?: string
   }>(),
   {
     width: '32px',
-    height: '32px'
-  }
+    height: '32px',
+  },
 )
 
 const width = computed(() => props.width.replace('px', ''))

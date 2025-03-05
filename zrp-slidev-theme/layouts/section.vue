@@ -7,3 +7,20 @@
     </div>
   </div>
 </template>
+
+<style>
+.slidev-layout.section {
+  @apply h-full grid pt-xs;
+
+  .clip-parallelogram {
+    @apply absolute top-0 left-0 w-2/3 h-full;
+    clip-path: polygon(0 0, 100% 0%, 40% 100%, 0% 100%);
+    background: var(--slidev-theme-primary);
+  }
+
+  h1 {
+    @apply text-5xl font-bold;
+    color: var(--zrp-background);
+  }
+}
+</style>

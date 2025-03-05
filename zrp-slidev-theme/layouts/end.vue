@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Bird from '../components/bird/Bird.vue';
+import Bird from '../components/bird/Bird.vue'
 
 const props = defineProps<{
-  email?: string;
-  website?: string;
+  email?: string
+  website?: string
 }>()
 </script>
 
@@ -23,3 +23,17 @@ const props = defineProps<{
     </div>
   </div>
 </template>
+
+<style>
+.slidev-layout.end {
+  @apply h-full grid pt-xs;
+
+  h1 {
+    @apply font-bold;
+  }
+
+  p {
+    @apply w-sm;
+  }
+}
+</style>

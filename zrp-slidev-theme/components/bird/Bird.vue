@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref } from 'vue'
 import BirdColorful from './BirdColorful.vue'
 
 const props = withDefaults(
   defineProps<{
-    color?: string;
-    width?: string;
-    height?: string;
+    color?: string
+    width?: string
+    height?: string
   }>(),
   {
     color: '#ffffff',
     width: '32px',
-    height: '32px'
-  }
+    height: '32px',
+  },
 )
 
 const isOver = ref(true)
