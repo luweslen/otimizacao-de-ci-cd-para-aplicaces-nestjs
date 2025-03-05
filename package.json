@@ -1,5 +1,5 @@
 {
-  "name": "palestra/otimizaco-de-ci-cd-para-aplicaces-nestjs",
+  "name": "palestra-otimizaco-de-ci-cd-para-aplicaces-nestjs",
   "type": "module",
   "private": true,
   "scripts": {
@@ -19,6 +19,7 @@
     "eslint": "9.21.0",
     "eslint-plugin-vue": "9.32.0",
     "globals": "16.0.0",
+    "playwright-chromium": "1.50.1",
     "typescript-eslint": "8.26.0"
   }
 }
