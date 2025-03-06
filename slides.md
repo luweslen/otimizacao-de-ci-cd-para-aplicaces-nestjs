@@ -197,14 +197,51 @@ Nos testes unitários, utilizávamos **Docker e Docker Compose** para rodar depe
 
 A solução foi remover essa dependência nos testes unitários e substituir por mocks, reduzindo significativamente o tempo de execução.
 
+---
+layout: content
+subject: Testes Unitários sem Dependências Externas
+---
+
+<<< ./src/snippets/docker-compose.yaml {13,14,15,16}{lines:true}
 
 ---
 layout: content
+subject: Testes Unitários sem Dependências Externas
+---
+<v-click>
+<b class="text-xs">Antes:</b>
+
+```yaml {5,6,7,8}
+specsUnit:
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CONTAINER_RELEASE_IMAGE
+    - docker-compose -f docker-compose.ci.yml run --rm app yarn
+    - docker-compose -f docker-compose.ci.yml run --rm app yarn db:create
+    - docker-compose -f docker-compose.ci.yml run --rm app yarn db:migrate
+    - docker-compose -f docker-compose.ci.yml run -e ci=true --rm app yarn test:u
+```
+</v-click>
+
+<v-click>
+<b class="text-xs">Depois:</b>
+
+```yaml {5}
+specsUnit:
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CONTAINER_RELEASE_IMAGE
+    - docker-compose -f docker-compose.ci.yml run -e ci=true --rm --no-deps app yarn test:u
+```
+</v-click>
+
+
+---
+layout: center
 routeAlias: e2e-tests
-subject: Testes E2E com Shard e Parallel
 ---
 
-Os testes de E2E (End-to-End) são os mais demorados no pipeline. Para melhorar a performance, utilizamos duas estratégias: **sharding** no Jest e **parallel** no GitLab CI.
+# Testes E2E com Shard e Parallel
 
 ---
 layout: content
@@ -221,6 +258,48 @@ jest --shard=1/3
 <br>
 
 No exemplo acima, estamos executando o primeiro de três shards, ou seja, dividimos os testes em três partes e estamos rodando apenas uma delas.
+
+---
+layout: content
+subject: O que é Parallel no GitLab CI?
+---
+
+Parallel no GitLab CI permite rodar múltiplas instâncias de uma mesma job simultaneamente, distribuindo a execução dos testes em diferentes máquinas virtuais.
+
+**Exemplo de Parallel no GitLab CI:**
+
+```yaml
+test-e2e:
+  script:
+    - npm run test:e2e
+  parallel: 3 # Executará a job em 3 instâncias simultâneas
+```
+
+---
+layout: content
+subject: O que é Parallel no GitLab CI?
+displayPageNumber: false
+---
+
+<div class="flex flex-col gap-1">
+  <b class="text-xs">Antes:</b>
+
+  <img
+    class="h-30"
+    src="./src/assets/before-parallel.png"
+    alt="Pipeline antes de implementar o parallel"
+  />
+</div>
+
+<div v-click="1">
+  <b class="text-xs">Depois:</b>
+
+  <img
+    class="h-45"
+    src="./src/assets/after-parallel.png"
+    alt="Pipeline depois de implementar o parallel"
+  />
+</div>
 
 
 ---
@@ -243,11 +322,11 @@ Após a implementação das otimizações, os tempos de execução do CI/CD fora
 <div class="flex gap-4 mt-xl w-full justify-center">
   <img
     src="./src/assets/after-pipe-mr.png"
-    alt=""
+    alt="Pipeline de MR depois das alterações"
   />
   <img
     src="./src/assets/after-pipe-branch.png"
-    alt=""
+    alt="Pipeline de branch depois das alterações"
   />
 </div>
 
@@ -264,7 +343,8 @@ subject: Referências
 routeAlias: references
 ---
 
-[Jest Shard](https://jestjs.io/pt-BR/docs/next/cli#--shard)
+- [Jest Shard](https://jestjs.io/pt-BR/docs/next/cli#--shard)
+- [Speed up your Jest tests with shards](https://medium.com/@mfreundlich1/speed-up-your-jest-tests-with-shards-776e9f02f637)
 
 ---
 layout: center

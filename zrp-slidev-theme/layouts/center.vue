@@ -11,7 +11,7 @@
   @apply h-full grid pt-xs;
 
   h1 {
-    @apply text-6xl font-bold;
+    @apply text-6xl font-bold text-center;
   }
 }
 </style>

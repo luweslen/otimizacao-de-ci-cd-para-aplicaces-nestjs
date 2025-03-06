@@ -1,0 +1,18 @@
+services:
+  app:
+    ports: []
+    stdin_open: true
+    tty: true
+    image: ${CONTAINER_RELEASE_IMAGE-payments:ci}
+    build:
+      context: .
+      target: ci
+      dockerfile: Dockerfile
+    env_file:
+      - .env.test
+    depends_on:
+      - db-test
+      - redis
+      - localstack
+    networks:
+      - ci
