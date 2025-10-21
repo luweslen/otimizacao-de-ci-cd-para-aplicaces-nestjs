@@ -55,30 +55,39 @@ routeAlias: context
 
 # Contexto
 
-
 ---
 layout: content
 routeAlias: what-is-ci-and-cd
 subject: O que é CI/CD?
 ---
 
-CI/CD (Continuous Integration/Continuous Deployment) é um conjunto de práticas que visa automatizar e otimizar o desenvolvimento de software, garantindo que novos códigos sejam integrados e implantados de maneira eficiente e segura.
+- **Continuous Integration (CI)**: Refere-se a integração continua do código-fonte da aplicação no repositório<sup>1</sup> principal.
+- **Continuous Deployment (CD)**: Extensão do processo acima, garantindo que as mudanças sejam automaticamente implantadas nos ambientes<sup>2</sup> referentes (produção/testes)
 
-- **Continuous Integration (CI)**: Refere-se à prática de integrar frequentemente as mudanças de código ao repositório principal. Isso permite que problemas sejam detectados e corrigidos rapidamente, pois cada alteração passa por testes automatizados antes de ser mesclada.
-- **Continuous Deployment (CD)**: É a extensão natural da CI, garantindo que as mudanças aprovadas sejam automaticamente implantadas nos ambientes de produção ou de testes, reduzindo a intervenção manual e aumentando a confiabilidade das entregas.
+<img
+  src="./src/assets/ci-cd.png"
+  alt=""
+  class="left-0"
+  style="width: 300px;"
+/>
+
+<footer class="absolute bottom-0 left-10 right-0">
+  <blockquote style="width: 720px">
+    <i><sup>1</sup> Um repositório é como uma <b>pasta compartilhada com histórico</b>.</i>
+    <br>
+    <i><sup>2</sup> Um ambiente resumidamente se refere ao <b>lugar onde o código final roda</b>.</i>
+  </blockquote>
+</footer>
 
 ---
 layout: content
 subject: Benefícios do CI/CD
 ---
 
-Implementar um pipeline de CI/CD traz diversos benefícios, entre eles:
-
-- **Maior agilidade no desenvolvimento**: O feedback rápido sobre novas implementações reduz o tempo entre a escrita do código e sua disponibilização.
-- **Detecção antecipada de erros**: Testes automatizados ajudam a identificar problemas antes que cheguem à produção.
-- **Menos retrabalho**: Como os erros são encontrados mais cedo, é mais fácil e barato corrigi-los.
-- **Implantações mais seguras e frequentes**: Reduzindo riscos e melhorando a confiabilidade dos sistemas.
-- **Automatização de processos repetitivos**: Permitindo que a equipe foque em desenvolvimento ao invés de tarefas operacionais.
+- **Maior agilidade:** O feedback ágil do processo de implantação reduz o tempo entre a escrita e disponibilização do código.
+- **Maior segurança e frequência:** O processo automatizado evita o desgaste comum de processos manuais de deploy/validação.
+- **Antecipação de Erros:** Testes automatizados servem como um bloqueio final para problemas não capturados em testes locais.
+- **Menos retrabalho:** Erros antecipados resultam em correções antecipadas, evitando tropeços no meio do caminho.
 
 ---
 layout: content
@@ -86,7 +95,7 @@ routeAlias: project-structure
 subject: Estrutura do Projeto
 ---
 
-Nosso projeto possui uma arquitetura baseada em microsserviços e conta com quatro ambientes distintos:
+O projeto conta com quatro ambientes distintos:
 
 - **Desenvolvimento**: Ambiente utilizado pelos desenvolvedores para testes e implementação de novas funcionalidades.
 - **Homologação**: Utilizado pelos QAs (Quality Assurance) para validação de novas funcionalidades antes da liberação.
@@ -100,13 +109,19 @@ subject: Estrutura do Projeto
 
 Nosso pipeline de CI/CD é dividido em duas partes principais:
 
-
 1. **CI de MRs/PRs**: Responsável por validar a integridade do código antes de ser mesclado na branch do ambiente.
 2. **CI/CD da branch do ambiente**: Valida novamente o código e realiza a implantação no ambiente correspondente.
 
-HotFixes são aplicados diretamente em produção, validados e depois propagados para os outros ambientes.
+HotFixes são aplicados diretamente em demonstração, validados e depois propagados para os outros ambientes.
 
-> **Nota:** MR (Merge Request) é um processo utilizado em plataformas como GitLab para solicitar a integração de um conjunto de alterações em uma branch principal. É similar ao PR (Pull Request) utilizado no GitHub.
+
+<footer class="absolute bottom-0 left-10 right-0">
+  <blockquote style="width: 720px">
+    <i>
+      MR (Merge Request) é um processo utilizado em plataformas como GitLab para solicitar a integração de um conjunto de alterações em uma branch principal. É similar ao PR (Pull Request) utilizado no GitHub. 
+    </i>
+  </blockquote>
+</footer>
 
 ---
 layout: content
@@ -136,7 +151,7 @@ subject: O Problema
 routeAlias: problem-1
 ---
 
-Nosso principal problema era o tempo elevado para que uma correção crítica chegasse em produção após a validação do QA. Somente o tempo de execução dos pipelines de CI/CD levava em torno de **4 horas**, distribuídas da seguinte forma:
+Um intervalo demasiadamente elevado para uma que uma correção crítica alcançasse produção, tomando em conta:
 
 <div class="flex justify-between mt-xl">
   <ul>
@@ -158,6 +173,14 @@ Nosso principal problema era o tempo elevado para que uma correção crítica ch
   </div>
 </div>
 
+<footer class="absolute bottom-0 left-10 right-0">
+  <blockquote style="width: 720px">
+    <i>
+      Esse tempo adicional em relação a MR se dá por conta de etapas exclusivas ao processo de implantação.
+    </i>
+  </blockquote>
+</footer>
+
 ---
 layout: center
 routeAlias: implemented-improvements
@@ -171,7 +194,13 @@ routeAlias: mocks
 subject: Padronização de Mocks
 ---
 
-O uso de diferentes abordagens para realizar mocks nos testes resultava em inconsistências e dificuldades na manutenção. Além disso, essa despadronização ocasionava erros intermitentes devido a mocks sendo gerados de forma errada, o que quebrava os testes automatizados. Como consequência, era necessário rodar a mesma job inúmeras vezes até obter uma execução bem-sucedida. Para resolver essa questão, padronizamos o uso da biblioteca **Rosie**, tornando os testes mais consistentes e fáceis de gerenciar.
+#### **Problema**
+
+Diferentes abordagens para os mocks de teste resultavam em inconsistências e dificuldades na manutenção. Além disso, essa falta de padrão causava erros intermitentes no processo de CI/CD, quebrando os testes automatizados. Nisso, era necessário **rodar a mesma job inúmeras vezes até obter uma execução bem sucedida**, o que adicionava ao tempo de execução da pipeline.
+
+#### **Solução**
+
+Padronização de mocks por meio da biblioteca **Rosie**, tornando os testes mais consistentes e sustentáveis em manutenção.
 
 <v-click>
 ```ts
@@ -180,12 +209,11 @@ export const agentConfigFactory = Factory.define<AgentConfigEntity>(
 )
   .attrs({
     id: () => faker.string.uuid(),
-    ...props
+    //...other props
   })
   .after(toInstance(AgentConfigEntity));
 ```
 </v-click>
-
 
 ---
 layout: content
@@ -193,9 +221,21 @@ routeAlias: unit-tests
 subject: Testes Unitários sem Dependências Externas
 ---
 
-Nos testes unitários, utilizávamos **Docker e Docker Compose** para rodar dependências como **Redis, Postgres e Localstack**. No entanto, essas dependências não eram necessárias para o contexto dos testes unitários, gerando um overhead desnecessário.
+#### **Problema**
 
-A solução foi remover essa dependência nos testes unitários e substituir por mocks, reduzindo significativamente o tempo de execução.
+Havia dependência direta de muitos serviços "reais" (Redis, Postgres, Localstack) que não cabiam ao escopo de um teste unitário<sup>1</sup>, causando um overhead desnecessário na execução.
+
+#### **Solução**
+
+Remoção de todas dependências em favor de mocks, reduzindo significativamente o tempo de execução.
+
+<footer class="absolute bottom-0 left-10 right-0">
+  <blockquote style="width: 720px">
+    <i>
+      <sup>1</sup> Teste isolado de uma unidade de código, focando em sua implementação sem nenhuma dependência externa.
+    </i>
+  </blockquote>
+</footer>
 
 ---
 layout: content
@@ -235,7 +275,6 @@ specsUnit:
 ```
 </v-click>
 
-
 ---
 layout: center
 routeAlias: e2e-tests
@@ -248,7 +287,7 @@ layout: content
 subject: O que é Shard no Jest?
 ---
 
-Sharding no Jest permite dividir a execução dos testes em diferentes processos, distribuindo a carga de trabalho e reduzindo o tempo total de execução.
+Shard se refere a fragmento em inglês, que exemplifica o processo de Sharding no Jest, que implica a execução dos testes em "fragmentos" menores do processo total.
 
 **Exemplo de uso do Shard no Jest:**
 
